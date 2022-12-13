@@ -1,0 +1,27 @@
+.list {
+  background: #ffffff;
+  list-style: none;
+  border: 1px solid #ccc;
+  height: 196px;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.list-item {
+  word-break: break-all;
+  border-bottom: 1px solid #ccc;
+  padding: 3px;
+}
+
+.list-item:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.list-item-active {
+  background: yellow;
+}
+
+.next-button {
+  margin-top: 10px;
+}
