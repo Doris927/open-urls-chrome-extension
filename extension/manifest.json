@@ -1,5 +1,5 @@
 {
-  "name": "React Chrome Extension",
+  "name": "Open Urls In Order",
   "version": "1.0.0",
   "manifest_version": 3,
   "action": {
