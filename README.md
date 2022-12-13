@@ -1,6 +1,12 @@
-## Chrome Extension using React
+## How to install
 
-Read this article to build your own Chrome Extension using react:
+- open chrome://extensions/
+- load extension from the folder named 'extension'
 
-[How To Build A Chrome Extension Using React](https://web-highlights.com/blog/how-to-build-a-chrome-extension-using-react/).
+## How to use
 
+- copy the urls and paste into the textarea
+- click the button named 'open urls in order'
+- 'url list' page
+  - click 'next' to open the next url.
+  - click one url to open
