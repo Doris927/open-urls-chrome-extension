@@ -23,23 +23,10 @@ type Props = {
 export const context = createContext<Context>({ state: initialState })
 
 export const Provider: FC<Props> = ({ savedState, ...props }) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, savedState || initialState)
 
   useEffect(() => {
-    if (savedState) {
-      dispatch({
-        type: 'setInitialState',
-        payload: {
-          state: savedState
-        }
-      })
-    }
-  }, [dispatch, savedState])
-
-  useEffect(() => {
-    if (state.content) {
-      storage.local.set({ openUrlsState: state })
-    }
+    storage.local.set({ openUrlsState: state })
   }, [state])
 
   const provider = useMemo(() => {

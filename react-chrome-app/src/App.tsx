@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import './reset.css'
 import Tabs from './components/Tabs'
 import PageInput from './components/PageInput'
@@ -30,12 +30,10 @@ type Props = {
 }
 
 const App: FC<Props> = ({ state }) => {
-  const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index)
-
   return (
     <div className="container">
       <Provider savedState={state}>
-        <Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} />
+        <Tabs tabs={tabs} />
       </Provider>
     </div>
   )

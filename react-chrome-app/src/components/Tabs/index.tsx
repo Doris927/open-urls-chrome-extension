@@ -1,4 +1,5 @@
-import { FC } from 'react'
+import { FC, useContext, useMemo } from 'react'
+import { context } from '../provider'
 import './styles.css'
 
 type TabsProps = {
@@ -7,8 +8,6 @@ type TabsProps = {
     index: number
     Component: FC<{ index: number }>
   }[]
-  selectedTab: number
-  onClick: (index: number) => void
   orientation?: 'horizontal' | 'vertical'
   className?: string
 }
@@ -24,11 +23,25 @@ type TabsProps = {
 const Tabs: FC<TabsProps> = ({
   className = 'tabs-component',
   tabs = [],
-  selectedTab = 0,
-  onClick,
   orientation = 'horizontal'
 }) => {
-  const Panel = tabs && tabs.find(tab => tab.index === selectedTab)
+  const { state, dispatch } = useContext(context)
+  const handleClick = (selectedIndex: number) => {
+    selectedIndex &&
+      dispatch &&
+      dispatch({
+        type: 'tabChanged',
+        payload: {
+          selectedTab: selectedIndex
+        }
+      })
+  }
+  const { selectedTab, Panel } = useMemo(() => {
+    return {
+      selectedTab: state.activeTap,
+      Panel: tabs && tabs.find(tab => tab.index === state.activeTap)
+    }
+  }, [state, tabs])
 
   return (
     <div
@@ -40,7 +53,7 @@ const Tabs: FC<TabsProps> = ({
         {tabs.map(tab => (
           <button
             className={selectedTab === tab.index ? 'active' : ''}
-            onClick={() => onClick(tab.index)}
+            onClick={() => handleClick(tab.index)}
             key={tab.index}
             type="button"
             role="tab"

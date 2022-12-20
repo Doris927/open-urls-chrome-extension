@@ -10,15 +10,10 @@ export type State = {
   content: string
   urlList?: UrlItem[]
   activeIndex: number
+  activeTap: number
 }
 
 export type ACTIONTYPE =
-  | {
-      type: 'setInitialState'
-      payload: {
-        state: State
-      }
-    }
   | {
       type: 'setContent'
       payload: {
@@ -35,18 +30,16 @@ export type ACTIONTYPE =
         selectedIndex: number
       }
     }
+  | {
+      type: 'tabChanged'
+      payload: {
+        selectedTab: number
+      }
+    }
 
 export const reducer: Reducer<State, ACTIONTYPE> = (state, action) => {
   const urlList = state.urlList
   switch (action.type) {
-    case 'setInitialState':
-      const savedState = action.payload.state
-      return {
-        ...state,
-        content: savedState.content,
-        activeIndex: savedState.activeIndex,
-        urlList: savedState.urlList
-      }
     case 'setContent':
       return { ...state, content: action.payload.content }
     case 'init':
@@ -60,7 +53,7 @@ export const reducer: Reducer<State, ACTIONTYPE> = (state, action) => {
           url: item
         }
       })
-      return { ...state, urlList: urlItems, activeIndex: 0 }
+      return { ...state, urlList: urlItems, activeIndex: 0, activeTap: 2 }
     case 'openNext':
       if (urlList) {
         const newActiveIndex = urlList
@@ -76,6 +69,8 @@ export const reducer: Reducer<State, ACTIONTYPE> = (state, action) => {
         return { ...state, activeIndex: action.payload.selectedIndex }
       }
       return state
+    case 'tabChanged':
+      return { ...state, activeTap: action.payload.selectedTab }
     default:
       return state
   }
@@ -84,5 +79,6 @@ export const reducer: Reducer<State, ACTIONTYPE> = (state, action) => {
 export const initialState: State = {
   content: '',
   urlList: undefined,
-  activeIndex: 0
+  activeIndex: 0,
+  activeTap: 1
 }
